@@ -2,6 +2,8 @@ emeter8870-read.rb
 ====
 sample secript for USB e-Meter 8870
 
+![e-Meter 8700](img01.png)
+
 
 USB e-Meter 8870
 ----
