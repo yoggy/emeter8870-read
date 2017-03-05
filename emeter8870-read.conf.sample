@@ -1,0 +1,31 @@
+;
+; emeter8870-read.conf - for supervisord configuration file
+;
+; install
+;     $ sudo apt-get install supervisor
+;     $ cd ~/work/emeter8870-read/
+;     $ sudo cp emeter8870-read.conf.sample /etc/supervisor/conf.d/emeter8870-read.conf
+;     $ sudo vi /etc/supervisor/conf.d/emeter8870-read.conf
+;       (fix path, etc...)
+;     $ sudo supervisorctl reread
+;     $ sudo supervisorctl add emeter8870-read
+;     $ sudo supervisorctl status
+;     emeter8870-read                  RUNNING    pid 8192, uptime 0:00:30
+;
+; see also
+;     Supervisor: A Process Control System
+;     http://supervisord.org/
+;
+[program:emeter8870-read]
+command                 = /home/pi/work/emeter8870-read/emeter8870-read.rb
+numprocs                = 1
+autostart               = true
+autorestart             = true
+user                    = pi
+environment             = HOME=/home/pi/
+redirect_stderr         = true
+stdout_logfile          = /home/pi/work/emeter8870-read/log.txt
+startsecs               = 1
+startretries            = 10
+stdout_logfile_maxbytes = 1MB
+stdout_logfile_backups  = 1
