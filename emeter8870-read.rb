@@ -25,7 +25,6 @@ require 'serialport'
 require 'redis'
 require 'mqtt'
 
-
 # configuration
 dev        = '/dev/ttyACM0'
 mqtt_host  = 'mqtt.iotgw'
@@ -46,16 +45,18 @@ $val = "0"
 
 Thread.abort_on_exception = true
 Thread.start do
-  # mqtt publish
-  begin
-    MQTT::Client.connect(mqtt_host, mqtt_port) do |c|
-      c.publish(mqtt_topic, $val)
+  loop do
+    # mqtt publish
+    begin
+      MQTT::Client.connect(mqtt_host, mqtt_port) do |c|
+        c.publish(mqtt_topic, $val)
+      end
+    rescue Exception => e
+      $log.error(e)
     end
-  rescue Exception => e
-    $log.error(e)
+    
+    sleep 1
   end
-  
-  sleep 1
 end
 
 loop do 
